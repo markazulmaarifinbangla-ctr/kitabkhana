@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="bn" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>মারকাযুল মাআরিফ · প্রফেশনাল কিউআর কোড</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- QR Code & Canvas Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root {
+    --primary: #073743;
+    --accent: #05b9bf;
+    --gold: #d4af37;
+    --bg-gradient: linear-gradient(135deg, #05262f, #075865, #05b9bf);
+}
+
+body {
+    margin: 0;
+    padding: 20px 10px;
+    background: var(--bg-gradient);
+    font-family: 'Hind Siliguri', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* Card Styling */
+.qr-card-container {
+    background: #ffffff;
+    color: #17343a;
+    padding: 30px 25px;
+    border-radius: 24px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    text-align: center;
+    max-width: 380px;
+    width: 100%;
+    position: relative;
+    border: 3px solid var(--gold);
+    box-sizing: border-box;
+}
+
+.logo-header {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 10px;
+    border: 2px solid var(--gold);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    display: block;
+}
+
+.qr-card-container h2 {
+    margin: 5px 0 2px;
+    color: var(--primary);
+    font-size: 1.45rem;
+    font-weight: 700;
+}
+
+.qr-card-container p {
+    margin: 0 0 15px;
+    color: #555;
+    font-size: 0.88rem;
+}
+
+/* QR Code Display Wrapper */
+.qr-wrapper {
+    position: relative;
+    display: inline-block;
+    padding: 12px;
+    background: #ffffff;
+    border: 2px dashed var(--accent);
+    border-radius: 16px;
+    margin: 10px 0;
+}
+
+#qrcode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#qrcode img {
+    border-radius: 8px;
+}
+
+/* Center Logo inside QR Code */
+.qr-center-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    background: #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    object-fit: cover;
+}
+
+/* Direct Access Button */
+.direct-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 11px 16px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    margin-top: 12px;
+    box-shadow: 0 4px 12px rgba(5, 185, 191, 0.3);
+    transition: all 0.2s ease;
+}
+
+.direct-btn:hover {
+    background: #049a9e;
+    transform: translateY(-2px);
+}
+
+/* Control Panel / Actions */
+.action-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+    max-width: 380px;
+    width: 100%;
+}
+
+.btn-action {
+    border: none;
+    padding: 11px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #ffffff;
+    transition: background 0.2s;
+}
+
+.btn-jpg { background: #27ae60; }
+.btn-jpg:hover { background: #219150; }
+
+.btn-png { background: #2980b9; }
+.btn-png:hover { background: #1f6391; }
+
+.btn-print { background: var(--primary); }
+.btn-print:hover { background: #05262f; }
+
+.btn-share { background: #8e44ad; }
+.btn-share:hover { background: #732d91; }
+
+/* Print Media Query */
+@media print {
+    body {
+        background: #ffffff;
+    }
+    .action-panel {
+        display: none;
+    }
+    .qr-card-container {
+        box-shadow: none;
+        border: 2px solid #000;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Printable & Downloadable Card -->
+<div class="qr-card-container" id="cardToCapture">
+    <!-- Top Logo: Using relative local file path 'logo.jpg' -->
+    <img src="logo.jpg" alt="মারকাযুল মাআরিফ লোগো" class="logo-header" onerror="this.src='https://raw.githubusercontent.com/markazulmaarifinbangla-ctr/kitabkhana/main/logo.jpg'">
+    
+    <h2>মারকাযুল মাআরিফ</h2>
+    <p>স্ক্যান করুন অথবা লিংকে ক্লিক করে কিতাবখানায় প্রবেশ করুন</p>
+    
+    <!-- QR Area -->
+    <div class="qr-wrapper">
+        <div id="qrcode"></div>
+        <!-- Center Overlay Logo -->
+        <img src="logo.jpg" class="qr-center-logo" alt="Logo" onerror="this.src='https://raw.githubusercontent.com/markazulmaarifinbangla-ctr/kitabkhana/main/logo.jpg'">
+    </div>
+    
+    <!-- Direct Click Link Button -->
+    <a href="https://markazulmaarifinbangla-ctr.github.io/kitabkhana/" target="_blank" class="direct-btn">
+        🚀 সরাসরি কিতাবখানায় প্রবেশ করুন
+    </a>
+</div>
+
+<!-- Download, Print & Share Action Buttons -->
+<div class="action-panel">
+    <button class="btn-action btn-jpg" onclick="downloadCard('jpeg')">🖼 JPG ডাউনলোড</button>
+    <button class="btn-action btn-png" onclick="downloadCard('png')">🎨 PNG ডাউনলোড</button>
+    <button class="btn-action btn-print" onclick="window.print()">🖨 প্রিন্ট / PDF</button>
+    <button class="btn-action btn-share" onclick="shareCard()">🔗 শেয়ার করুন</button>
+</div>
+
+<script>
+    const SITE_URL = "https://markazulmaarifinbangla-ctr.github.io/kitabkhana/";
+
+    // Generate High-Quality QR Code
+    new QRCode(document.getElementById("qrcode"), {
+        text: SITE_URL,
+        width: 200,
+        height: 200,
+        colorDark : "#073743",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+    });
+
+    // Image Download Function (JPG / PNG)
+    function downloadCard(format) {
+        const cardElement = document.getElementById("cardToCapture");
+        
+        html2canvas(cardElement, {
+            scale: 3, // High Resolution Output
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: "#ffffff"
+        }).then(canvas => {
+            const link = document.createElement('a');
+            const mimeType = format === 'jpeg' ? 'image/jpeg' : 'image/png';
+            link.download = `Markazul_Maarif_Kitabkhana_QR.${format}`;
+            link.href = canvas.toDataURL(mimeType, 0.95);
+            link.click();
+        });
+    }
+
+    // Share or Copy Link Function
+    function shareCard() {
+        if (navigator.share) {
+            navigator.share({
+                title: 'মারকাযুল মাআরিফ - কিতাবখানা',
+                text: 'অনলাইনে কিতাব পড়তে স্ক্যান করুন বা লিংকে প্রবেশ করুন:',
+                url: SITE_URL,
+            }).catch(console.error);
+        } else {
+            navigator.clipboard.writeText(SITE_URL);
+            alert('লিংক কপি করা হয়েছে! যে কাউকে পাঠাতে পারবেন।');
+        }
+    }
+</script>
+
+</body>
+</html>
