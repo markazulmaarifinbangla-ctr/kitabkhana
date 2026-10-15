@@ -51,3 +51,23 @@ body.dark .cover{box-shadow:inset 3px 3px 6px #07171b,inset -3px -3px 6px #23464
 body.dark .search,body.dark .select,body.dark .reset,body.dark .chip,body.dark .field input,body.dark .field select,body.dark .field textarea{background:var(--card);color:var(--ink);box-shadow:inset 3px 3px 6px #0a1e23,inset -3px -3px 6px #20434b}
 body.dark .bottom{background:var(--card);box-shadow:0 -4px 14px #0007}
 body.dark .tag{color:#d8ffff}
+
+/* Mobile-first search/results: keep discovery visible and tuck advanced filters away. */
+.filter-toggle{display:none;border:0;border-radius:11px;padding:9px 12px;background:var(--bg);color:var(--deep);font-weight:700;box-shadow:4px 4px 8px #a3b1c6,-4px -4px 8px #fff}
+.filter-options{display:contents}
+#count{scroll-margin-top:78px}
+@media(max-width:600px){
+ .hero{display:none}
+ .tools{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;margin:10px 0 8px}
+ .tools .search{grid-column:1/-1;grid-row:1;width:100%;min-width:0;min-height:46px;font-size:1rem}
+ .filter-toggle{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;min-height:40px}
+ .filter-options{grid-column:1/-1;display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .tools.filters-open .filter-options{display:grid}
+ .filter-options select{min-width:0;width:100%;font-size:.84rem;padding:9px 8px}
+ .filter-options .reset{grid-column:1/-1;min-height:40px}
+ .chips{padding-bottom:6px;scrollbar-width:thin}
+ .meta{position:sticky;top:55px;z-index:10;background:var(--bg);padding:5px 2px;margin:0 0 8px}
+ .grid{scroll-margin-top:100px}
+}
+@media(max-width:360px){.meta{font-size:.78rem}.filter-toggle{font-size:.88rem}}
+body.dark .filter-toggle{background:var(--card);color:var(--ink);box-shadow:inset 3px 3px 6px #0a1e23,inset -3px -3px 6px #20434b}
